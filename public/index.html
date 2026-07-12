@@ -476,10 +476,11 @@ hr.rule {
 /* skills */
 .skills-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
   gap: 1.2rem;
-  max-width: 900px;
 }
+#skills .skill-card { display: flex; flex-direction: column; }
+#skills .skill-card .chips { align-content: flex-start; }
 .skill-card {
   background: #fff;
   border: 1px solid var(--light);
@@ -665,6 +666,47 @@ footer .section-title em { color: var(--sky-l); }
 #toTop.show { opacity: 1; pointer-events: auto; }
 #toTop:hover { transform: translateY(-3px); }
 @media (prefers-reduced-motion: reduce) { .hero-blob { animation: none; } .hero-role::after { animation: none; } }
+
+/* layout rhythm */
+section > div > .section-title, footer .section-title { position: relative; z-index: 1; }
+.sec-head { position: relative; }
+.sec-num { position: absolute; top: -3.2rem; left: -0.8rem; font-family: var(--serif); font-size: clamp(5rem, 10vw, 8rem);
+  color: var(--navy); opacity: 0.05; font-weight: 600; line-height: 1; pointer-events: none; user-select: none; z-index: 0; }
+footer .sec-num { color: #fff; opacity: 0.05; }
+
+/* about layout */
+.about-cols { display: grid; grid-template-columns: 1fr 300px; gap: 3.5rem; align-items: start; max-width: 1100px; }
+.fact-card { position: sticky; top: 90px; background: var(--off); border: 1px solid var(--light); border-radius: 1.2rem; padding: 1.8rem; }
+.fact-row { display: flex; justify-content: space-between; gap: 1rem; padding: 0.75rem 0; border-bottom: 1px dashed var(--light); }
+.fact-row:last-child { border-bottom: none; }
+.fact-k { font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); font-weight: 600; padding-top: 0.15rem; white-space: nowrap; }
+.fact-v { font-size: 0.78rem; color: var(--ink); font-weight: 400; text-align: right; }
+
+/* staggered projects on desktop */
+@media (min-width: 1024px) {
+  .projects-grid { grid-template-columns: repeat(3, 1fr); }
+  .projects-grid .project-card:nth-child(3n+2):not(.hide) { transform: translateY(26px); }
+  .projects-grid .project-card:nth-child(3n+2):not(.hide):hover { transform: translateY(21px); }
+  .projects-grid { padding-bottom: 26px; }
+}
+
+/* stepped experience cards */
+@media (min-width: 900px) {
+  .exp-wrap { max-width: 860px; }
+  .exp-item:nth-child(2) { margin-left: 3.5rem; }
+  .exp-item:nth-child(3) { margin-left: 7rem; }
+}
+.exp-card { border-left: 3px solid var(--sky); }
+.exp-card:hover { box-shadow: 0 8px 28px rgba(30,58,95,0.12); }
+
+/* hero scroll cue */
+.scroll-cue { position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%);
+  width: 24px; height: 40px; border: 2px solid rgba(30,58,95,0.25); border-radius: 14px; }
+.scroll-cue::after { content: ''; position: absolute; top: 7px; left: 50%; width: 4px; height: 8px;
+  margin-left: -2px; border-radius: 2px; background: var(--indigo); animation: cue 1.8s ease-in-out infinite; }
+@keyframes cue { 0% { transform: translateY(0); opacity: 1; } 70% { transform: translateY(12px); opacity: 0; } 100% { opacity: 0; } }
+@media (max-width: 768px) { .about-cols { grid-template-columns: 1fr; } .fact-card { position: static; } .scroll-cue { display: none; } }
+@media (prefers-reduced-motion: reduce) { .scroll-cue::after { animation: none; } }
 </style>
 </head>
 <body>
@@ -751,6 +793,7 @@ footer .section-title em { color: var(--sky-l); }
         <div class="photo"><img src="shiva.jpg" alt="Shiva Athappan" /></div>
       </div>
     </div>
+    <div class="scroll-cue"></div>
   </section>
 
   <!-- stats -->
@@ -764,9 +807,10 @@ footer .section-title em { color: var(--sky-l); }
   <!-- about -->
   <section id="about" class="bg-white">
     <div class="reveal">
-      <p class="eyebrow">About Me</p>
+      <div class="sec-head"><span class="sec-num">01</span><p class="eyebrow">About Me</p></div>
       <h2 class="section-title">Who Am I?</h2>
       <hr class="rule" />
+      <div class="about-cols">
       <div class="about-body">
         <p><strong>Hi, I'm Shiva.</strong> A Computer Science graduate student at Clark University and a backend engineer who cares about the parts of software users never see — the APIs, queues, caches, and pipelines that make everything else feel fast and reliable.</p>
         <p>Over 3+ years across Connex AI and IdeaEdu, I've engineered Python/FastAPI services that cut API latency by 20%, optimized PostgreSQL schemas and queries for 30% faster execution, and shipped LangChain/OpenAI pipelines for document summarization and intent classification. I've built systems end-to-end: REST APIs with OAuth2/JWT auth, Redis caching and rate limiting, Kafka and RabbitMQ messaging, and CI/CD automation with GitHub Actions to AWS.</p>
@@ -780,13 +824,22 @@ footer .section-title em { color: var(--sky-l); }
           </div>
         </div>
       </div>
+      <aside class="fact-card">
+        <div class="fact-row"><span class="fact-k">Role</span><span class="fact-v">Backend Engineer</span></div>
+        <div class="fact-row"><span class="fact-k">Location</span><span class="fact-v">Worcester, MA</span></div>
+        <div class="fact-row"><span class="fact-k">Degree</span><span class="fact-v">MS CS, Clark University</span></div>
+        <div class="fact-row"><span class="fact-k">Experience</span><span class="fact-v">3+ years</span></div>
+        <div class="fact-row"><span class="fact-k">Focus</span><span class="fact-v">APIs · Cloud · AI systems</span></div>
+        <div class="fact-row"><span class="fact-k">Status</span><span class="fact-v" style="color:#16a34a;">Open to work</span></div>
+      </aside>
+      </div>
     </div>
   </section>
 
   <!-- projects -->
   <section id="projects">
     <div class="reveal">
-      <p class="eyebrow">Selected Work</p>
+      <div class="sec-head"><span class="sec-num">02</span><p class="eyebrow">Selected Work</p></div>
       <h2 class="section-title">Projects that <em>shipped.</em></h2>
       <hr class="rule" />
       <p style="font-size: 0.88rem; font-weight: 300; color: var(--mid); margin-bottom: 2rem; max-width: 560px; line-height: 1.75;">
@@ -956,7 +1009,7 @@ footer .section-title em { color: var(--sky-l); }
   <!-- experience -->
   <section id="experience" class="bg-light">
     <div class="reveal">
-      <p class="eyebrow">Experience</p>
+      <div class="sec-head"><span class="sec-num">03</span><p class="eyebrow">Experience</p></div>
       <h2 class="section-title">How I've made an <em>impact.</em></h2>
       <hr class="rule" />
       <div class="exp-wrap">
@@ -1018,7 +1071,7 @@ footer .section-title em { color: var(--sky-l); }
   <!-- skills -->
   <section id="skills">
     <div class="reveal">
-      <p class="eyebrow">Toolbox</p>
+      <div class="sec-head"><span class="sec-num">04</span><p class="eyebrow">Toolbox</p></div>
       <h2 class="section-title">Technical <em>skills.</em></h2>
       <hr class="rule" />
       <div class="skills-grid">
@@ -1057,10 +1110,10 @@ footer .section-title em { color: var(--sky-l); }
   <!-- how i work -->
   <section id="approach" class="bg-white">
     <div class="reveal">
-      <p class="eyebrow">Approach</p>
+      <div class="sec-head"><span class="sec-num">05</span><p class="eyebrow">Approach</p></div>
       <h2 class="section-title">How I <em>work.</em></h2>
       <hr class="rule" />
-      <div class="skills-grid" style="max-width: 1100px; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));">
+      <div class="skills-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
         <div class="skill-card">
           <div style="font-size:1.6rem;margin-bottom:0.6rem;">📏</div>
           <h3 style="font-size:0.9rem;text-transform:none;letter-spacing:0.02em;color:var(--ink);font-family:var(--serif);">Performance is measured, not assumed</h3>
@@ -1083,7 +1136,7 @@ footer .section-title em { color: var(--sky-l); }
   <!-- certifications -->
   <section id="certifications" class="bg-light">
     <div class="reveal">
-      <p class="eyebrow">Credentials</p>
+      <div class="sec-head"><span class="sec-num">06</span><p class="eyebrow">Credentials</p></div>
       <h2 class="section-title">Certifications &amp; <em>training.</em></h2>
       <hr class="rule" />
       <div class="awards-list">
@@ -1131,7 +1184,7 @@ footer .section-title em { color: var(--sky-l); }
   <!-- education -->
   <section id="education">
     <div class="reveal">
-      <p class="eyebrow">Education</p>
+      <div class="sec-head"><span class="sec-num">07</span><p class="eyebrow">Education</p></div>
       <h2 class="section-title">Where I built my <em>foundation.</em></h2>
       <hr class="rule" />
       <div class="edu-list">
@@ -1179,7 +1232,7 @@ footer .section-title em { color: var(--sky-l); }
 <!-- footer / contact -->
 <footer id="contact">
   <div class="reveal">
-    <p class="eyebrow">Get In Touch</p>
+    <div class="sec-head"><span class="sec-num">08</span><p class="eyebrow">Get In Touch</p></div>
     <h2 class="section-title">Let's start a <em>conversation.</em></h2>
     <hr class="rule" />
     <div class="contact-grid">
