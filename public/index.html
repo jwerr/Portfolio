@@ -497,13 +497,18 @@ hr.rule {
 .exp-bullets li::before { content: '›'; position: absolute; left: 0; color: var(--indigo); font-weight: 600; }
 
 /* certifications */
-.awards-list { display: flex; flex-direction: column; gap: 1.2rem; max-width: 780px; }
+.awards-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.2rem; }
 .award-card {
-  display: flex; gap: 1.4rem; align-items: flex-start;
+  display: flex; flex-direction: column; gap: 1rem; align-items: flex-start;
   background: #fff; border: 1px solid var(--light);
-  border-radius: 1rem; padding: 1.6rem 1.8rem;
+  border-radius: 1rem; padding: 1.7rem 1.8rem;
   box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  border-top: 3px solid var(--indigo);
+  transition: transform 0.2s, box-shadow 0.2s;
 }
+.award-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(30,58,95,0.1); }
+.award-card > div:last-child { display: flex; flex-direction: column; flex: 1; width: 100%; }
+.award-desc { margin-top: auto; }
 .award-icon {
   font-size: 1.5rem; line-height: 1; flex-shrink: 0;
   width: 48px; height: 48px; background: #eef2ff;
@@ -701,7 +706,8 @@ footer .section-title em { color: var(--sky-l); }
 .stat-num { font-family: var(--serif); font-size: clamp(1.8rem, 4vw, 2.8rem); color: var(--navy); font-weight: 600; }
 .stat-num span { color: var(--indigo); }
 .stat-label { font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-top: 0.3rem; font-weight: 500; }
-@media (max-width: 768px) { .stats-band { grid-template-columns: repeat(2, 1fr); gap: 1.6rem; } }
+.stats-band { row-gap: 2.2rem; }
+@media (max-width: 768px) { .stats-band { grid-template-columns: repeat(2, 1fr) !important; gap: 1.6rem; } }
 .project-card { transform-style: preserve-3d; will-change: transform; }
 #toTop { position: fixed; bottom: 24px; right: 24px; width: 46px; height: 46px; border-radius: 50%;
   background: var(--indigo); color: #fff; border: none; cursor: pointer; font-size: 1.1rem; z-index: 250;
@@ -774,6 +780,13 @@ footer .sec-num { color: #fff; opacity: 0.05; }
 .chat-input input { flex: 1; border: none; outline: none; padding: 0.85rem 1rem; font-family: var(--sans); font-size: 0.8rem; }
 .chat-input button { background: none; border: none; color: var(--indigo); cursor: pointer; padding: 0 1rem; font-size: 1.05rem; }
 @media (max-width: 768px) { #chatPanel { bottom: 88px; } }
+
+/* skills polish */
+#skills .chips span.core { background: var(--indigo); color: #fff; font-weight: 500; }
+#skills .skill-card { transition: transform 0.2s, box-shadow 0.2s; }
+#skills .skill-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(30,58,95,0.1); }
+.skills-note { font-size: 0.68rem; color: var(--muted); margin: 1.4rem 0 0; letter-spacing: 0.03em; }
+.skills-note i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; background: var(--indigo); vertical-align: -1px; margin-right: 6px; }
 </style>
 </head>
 <body>
@@ -864,11 +877,23 @@ footer .sec-num { color: #fff; opacity: 0.05; }
   </section>
 
   <!-- stats -->
-  <div class="stats-band reveal">
-    <div class="stat"><div class="stat-num" data-count="3" data-suffix="+">0</div><div class="stat-label">Years Experience</div></div>
-    <div class="stat"><div class="stat-num" data-count="6">0</div><div class="stat-label">Projects Shipped</div></div>
-    <div class="stat"><div class="stat-num" data-count="65" data-suffix="%">0</div><div class="stat-label">Latency Reduced</div></div>
-    <div class="stat"><div class="stat-num" data-count="10" data-suffix="K+">0</div><div class="stat-label">Docs Indexed</div></div>
+  <section id="numbers" class="bg-light" style="padding-top: 4rem; padding-bottom: 4rem;">
+    <div class="reveal">
+      <div class="sec-head"><span class="sec-num">00</span><p class="eyebrow">By The Numbers</p></div>
+      <h2 class="section-title">Numbers that <em>speak.</em></h2>
+      <hr class="rule" />
+      <div class="stats-band" style="max-width: none; padding: 0; grid-template-columns: repeat(4, 1fr);">
+        <div class="stat"><div class="stat-num" data-count="3" data-suffix="+">0</div><div class="stat-label">Years Experience</div></div>
+        <div class="stat"><div class="stat-num" data-count="6">0</div><div class="stat-label">Projects Shipped</div></div>
+        <div class="stat"><div class="stat-num" data-count="65" data-suffix="%">0</div><div class="stat-label">Latency Cut with Redis</div></div>
+        <div class="stat"><div class="stat-num" data-count="10" data-suffix="K+">0</div><div class="stat-label">Docs Indexed for RAG</div></div>
+        <div class="stat"><div class="stat-num" data-count="20" data-suffix="+">0</div><div class="stat-label">Reusable Modules Built</div></div>
+        <div class="stat"><div class="stat-num" data-count="30" data-suffix="%">0</div><div class="stat-label">Faster SQL Queries</div></div>
+        <div class="stat"><div class="stat-num" data-count="60" data-suffix="%">0</div><div class="stat-label">Screening Time Saved</div></div>
+        <div class="stat"><div class="stat-num" data-count="50" data-suffix="%">0</div><div class="stat-label">Faster Deploys via CI/CD</div></div>
+      </div>
+    </div>
+  </section>
   </div>
 
   <!-- about -->
@@ -1143,34 +1168,35 @@ footer .sec-num { color: #fff; opacity: 0.05; }
       <hr class="rule" />
       <div class="skills-grid">
         <div class="skill-card">
-          <h3>Languages</h3>
-          <div class="chips"><span>Python</span><span>Java</span><span>SQL</span><span>JavaScript</span><span>Kotlin</span><span>C++</span></div>
+          <h3><span style="font-size:1rem;margin-right:0.45rem;">&#128220;</span>Languages</h3>
+          <div class="chips"><span class="core">Python</span><span>Java</span><span class="core">SQL</span><span>JavaScript</span><span>Kotlin</span><span>C++</span></div>
         </div>
         <div class="skill-card">
-          <h3>Backend &amp; APIs</h3>
-          <div class="chips"><span>FastAPI</span><span>Flask</span><span>Node.js</span><span>RESTful APIs</span><span>Microservices</span><span>OAuth2</span><span>JWT</span></div>
+          <h3><span style="font-size:1rem;margin-right:0.45rem;">&#9881;&#65039;</span>Backend &amp; APIs</h3>
+          <div class="chips"><span class="core">FastAPI</span><span>Flask</span><span>Node.js</span><span>RESTful APIs</span><span class="core">Microservices</span><span>OAuth2</span><span>JWT</span></div>
         </div>
         <div class="skill-card">
-          <h3>Cloud &amp; DevOps</h3>
-          <div class="chips"><span>AWS EC2</span><span>RDS</span><span>S3</span><span>ElastiCache</span><span>Docker</span><span>Kubernetes</span><span>GitHub Actions</span></div>
+          <h3><span style="font-size:1rem;margin-right:0.45rem;">&#9729;&#65039;</span>Cloud &amp; DevOps</h3>
+          <div class="chips"><span class="core">AWS EC2</span><span>RDS</span><span>S3</span><span>ElastiCache</span><span class="core">Docker</span><span>Kubernetes</span><span class="core">GitHub Actions</span></div>
         </div>
         <div class="skill-card">
-          <h3>Databases &amp; Caching</h3>
-          <div class="chips"><span>PostgreSQL</span><span>MySQL</span><span>MongoDB</span><span>SQLite</span><span>Redis</span></div>
+          <h3><span style="font-size:1rem;margin-right:0.45rem;">&#128451;&#65039;</span>Databases &amp; Caching</h3>
+          <div class="chips"><span class="core">PostgreSQL</span><span>MySQL</span><span>MongoDB</span><span>SQLite</span><span class="core">Redis</span></div>
         </div>
         <div class="skill-card">
-          <h3>Messaging &amp; Streaming</h3>
+          <h3><span style="font-size:1rem;margin-right:0.45rem;">&#128257;</span>Messaging &amp; Streaming</h3>
           <div class="chips"><span>Apache Kafka</span><span>RabbitMQ</span><span>Redis Pub/Sub</span><span>Rate Limiting</span></div>
         </div>
         <div class="skill-card">
-          <h3>AI / ML</h3>
-          <div class="chips"><span>LangChain</span><span>OpenAI API</span><span>RAG</span><span>FAISS</span><span>NLP</span><span>Scikit-learn</span><span>TensorFlow</span><span>Hugging Face</span></div>
+          <h3><span style="font-size:1rem;margin-right:0.45rem;">&#129504;</span>AI / ML</h3>
+          <div class="chips"><span class="core">LangChain</span><span>OpenAI API</span><span class="core">RAG</span><span>FAISS</span><span>NLP</span><span>Scikit-learn</span><span>TensorFlow</span><span>Hugging Face</span></div>
         </div>
         <div class="skill-card">
-          <h3>Frontend</h3>
-          <div class="chips"><span>React.js</span><span>HTML5</span><span>CSS3</span><span>Chart.js</span><span>Streamlit</span></div>
+          <h3><span style="font-size:1rem;margin-right:0.45rem;">&#127912;</span>Frontend</h3>
+          <div class="chips"><span class="core">React.js</span><span>HTML5</span><span>CSS3</span><span>Chart.js</span><span>Streamlit</span></div>
         </div>
       </div>
+      <p class="skills-note"><i></i>Highlighted = core stack, used daily in production work</p>
     </div>
   </section>
 
