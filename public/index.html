@@ -1349,6 +1349,18 @@ footer .sec-num { color: #fff; opacity: 0.05; }
   </div>
 </footer>
 
+<button id="chatBtn" aria-label="Chat with Shiva's AI assistant">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+</button>
+<div id="chatPanel" role="dialog" aria-label="AI assistant">
+  <div class="chat-head"><b>Shiva's AI Assistant</b><span>Ask about experience, projects, or availability</span></div>
+  <div id="chatLog"></div>
+  <div class="chat-input">
+    <input id="chatIn" type="text" placeholder="e.g. What has Shiva built with Redis?" maxlength="300" />
+    <button id="chatSend" aria-label="Send">&#10148;</button>
+  </div>
+</div>
+<button id="toTop" aria-label="Back to top">↑</button>
 <script>
 // menu
 const hamburger = document.getElementById('hamburger');
@@ -1473,17 +1485,5 @@ async function send() {
 cSend.addEventListener('click', send);
 cIn.addEventListener('keydown', e => { if (e.key === 'Enter') send(); });
 </script>
-<button id="chatBtn" aria-label="Chat with Shiva's AI assistant">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-</button>
-<div id="chatPanel" role="dialog" aria-label="AI assistant">
-  <div class="chat-head"><b>Shiva's AI Assistant</b><span>Ask about experience, projects, or availability</span></div>
-  <div id="chatLog"></div>
-  <div class="chat-input">
-    <input id="chatIn" type="text" placeholder="e.g. What has Shiva built with Redis?" maxlength="300" />
-    <button id="chatSend" aria-label="Send">&#10148;</button>
-  </div>
-</div>
-<button id="toTop" aria-label="Back to top">↑</button>
 </body>
 </html>
