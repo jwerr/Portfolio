@@ -14,6 +14,49 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232f6bba'/%3E%3Ctext x='32' y='43' font-family='Georgia,serif' font-size='30' fill='white' text-anchor='middle' font-weight='bold'%3ESA%3C/text%3E%3C/svg%3E" />
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Person","name":"Shiva Athappan","jobTitle":"Backend Engineer","url":"https://portfolio-4xhz.onrender.com/","email":"mailto:shivayokeswariathappan@gmail.com","telephone":"(508) 713-8308","address":{"@type":"PostalAddress","addressLocality":"Worcester","addressRegion":"MA","addressCountry":"US"},"alumniOf":[{"@type":"CollegeOrUniversity","name":"Clark University"},{"@type":"CollegeOrUniversity","name":"Alagappa University"}],"sameAs":["https://github.com/jwerr"],"knowsAbout":["Python","FastAPI","PostgreSQL","Docker","AWS","Redis","Kafka","LangChain","RAG","Microservices"]}
+
+// chat widget
+const cBtn = document.getElementById('chatBtn'), cPanel = document.getElementById('chatPanel'),
+      cLog = document.getElementById('chatLog'), cIn = document.getElementById('chatIn'),
+      cSend = document.getElementById('chatSend');
+const history = [];
+function addMsg(role, text, wait) {
+  const d = document.createElement('div');
+  d.className = 'msg ' + (role === 'user' ? 'u' : 'a') + (wait ? ' wait' : '');
+  d.textContent = text;
+  cLog.appendChild(d); cLog.scrollTop = cLog.scrollHeight;
+  return d;
+}
+cBtn.addEventListener('click', () => {
+  cPanel.classList.toggle('open');
+  if (cPanel.classList.contains('open') && !cLog.children.length)
+    addMsg('assistant', "Hi! I'm Shiva's AI assistant. Ask me anything about his experience, projects, or skills.");
+  cIn.focus();
+});
+async function send() {
+  const q = cIn.value.trim();
+  if (!q) return;
+  cIn.value = '';
+  addMsg('user', q);
+  history.push({ role: 'user', content: q });
+  const w = addMsg('assistant', '', true);
+  try {
+    const r = await fetch('/api/chat', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ messages: history }),
+    });
+    const data = await r.json();
+    w.classList.remove('wait');
+    w.textContent = data.reply;
+    history.push({ role: 'assistant', content: data.reply });
+  } catch {
+    w.classList.remove('wait');
+    w.textContent = 'Connection issue — try again, or email shivayokeswariathappan@gmail.com.';
+  }
+  cLog.scrollTop = cLog.scrollHeight;
+}
+cSend.addEventListener('click', send);
+cIn.addEventListener('keydown', e => { if (e.key === 'Enter') send(); });
 </script>
 <style>
 /* vars */
@@ -707,6 +750,30 @@ footer .sec-num { color: #fff; opacity: 0.05; }
 @keyframes cue { 0% { transform: translateY(0); opacity: 1; } 70% { transform: translateY(12px); opacity: 0; } 100% { opacity: 0; } }
 @media (max-width: 768px) { .about-cols { grid-template-columns: 1fr; } .fact-card { position: static; } .scroll-cue { display: none; } }
 @media (prefers-reduced-motion: reduce) { .scroll-cue::after { animation: none; } }
+
+/* chat widget */
+#chatBtn { position: fixed; bottom: 24px; left: 24px; width: 54px; height: 54px; border-radius: 50%;
+  background: var(--navy); color: #fff; border: none; cursor: pointer; z-index: 260;
+  box-shadow: 0 8px 24px rgba(30,58,95,.4); display: flex; align-items: center; justify-content: center;
+  transition: transform 0.2s; }
+#chatBtn:hover { transform: scale(1.08); }
+#chatBtn svg { width: 24px; height: 24px; }
+#chatPanel { position: fixed; bottom: 92px; left: 24px; width: 330px; max-width: calc(100vw - 48px);
+  background: #fff; border: 1px solid var(--light); border-radius: 1.2rem; z-index: 260;
+  box-shadow: 0 20px 60px rgba(30,58,95,.25); display: none; flex-direction: column; overflow: hidden; }
+#chatPanel.open { display: flex; }
+.chat-head { background: var(--navy); color: #fff; padding: 0.9rem 1.2rem; }
+.chat-head b { font-family: var(--serif); font-size: 0.95rem; font-weight: 600; display: block; }
+.chat-head span { font-size: 0.62rem; color: var(--sky-l); letter-spacing: 0.06em; }
+#chatLog { height: 300px; overflow-y: auto; padding: 1rem; display: flex; flex-direction: column; gap: 0.6rem; background: var(--off); }
+.msg { max-width: 85%; padding: 0.55rem 0.85rem; border-radius: 0.9rem; font-size: 0.78rem; line-height: 1.55; font-weight: 300; white-space: pre-wrap; }
+.msg.u { align-self: flex-end; background: var(--indigo); color: #fff; border-bottom-right-radius: 0.25rem; }
+.msg.a { align-self: flex-start; background: #fff; border: 1px solid var(--light); color: var(--mid); border-bottom-left-radius: 0.25rem; }
+.msg.a.wait::after { content: '···'; letter-spacing: 2px; animation: blink 1s infinite; }
+.chat-input { display: flex; border-top: 1px solid var(--light); background: #fff; }
+.chat-input input { flex: 1; border: none; outline: none; padding: 0.85rem 1rem; font-family: var(--sans); font-size: 0.8rem; }
+.chat-input button { background: none; border: none; color: var(--indigo); cursor: pointer; padding: 0 1rem; font-size: 1.05rem; }
+@media (max-width: 768px) { #chatPanel { bottom: 88px; } }
 </style>
 </head>
 <body>
@@ -1362,7 +1429,61 @@ document.querySelectorAll('.project-card').forEach(c => {
   });
   c.addEventListener('mouseleave', () => c.style.transform = '');
 });
+
+// chat widget
+const cBtn = document.getElementById('chatBtn'), cPanel = document.getElementById('chatPanel'),
+      cLog = document.getElementById('chatLog'), cIn = document.getElementById('chatIn'),
+      cSend = document.getElementById('chatSend');
+const history = [];
+function addMsg(role, text, wait) {
+  const d = document.createElement('div');
+  d.className = 'msg ' + (role === 'user' ? 'u' : 'a') + (wait ? ' wait' : '');
+  d.textContent = text;
+  cLog.appendChild(d); cLog.scrollTop = cLog.scrollHeight;
+  return d;
+}
+cBtn.addEventListener('click', () => {
+  cPanel.classList.toggle('open');
+  if (cPanel.classList.contains('open') && !cLog.children.length)
+    addMsg('assistant', "Hi! I'm Shiva's AI assistant. Ask me anything about his experience, projects, or skills.");
+  cIn.focus();
+});
+async function send() {
+  const q = cIn.value.trim();
+  if (!q) return;
+  cIn.value = '';
+  addMsg('user', q);
+  history.push({ role: 'user', content: q });
+  const w = addMsg('assistant', '', true);
+  try {
+    const r = await fetch('/api/chat', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ messages: history }),
+    });
+    const data = await r.json();
+    w.classList.remove('wait');
+    w.textContent = data.reply;
+    history.push({ role: 'assistant', content: data.reply });
+  } catch {
+    w.classList.remove('wait');
+    w.textContent = 'Connection issue — try again, or email shivayokeswariathappan@gmail.com.';
+  }
+  cLog.scrollTop = cLog.scrollHeight;
+}
+cSend.addEventListener('click', send);
+cIn.addEventListener('keydown', e => { if (e.key === 'Enter') send(); });
 </script>
+<button id="chatBtn" aria-label="Chat with Shiva's AI assistant">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+</button>
+<div id="chatPanel" role="dialog" aria-label="AI assistant">
+  <div class="chat-head"><b>Shiva's AI Assistant</b><span>Ask about experience, projects, or availability</span></div>
+  <div id="chatLog"></div>
+  <div class="chat-input">
+    <input id="chatIn" type="text" placeholder="e.g. What has Shiva built with Redis?" maxlength="300" />
+    <button id="chatSend" aria-label="Send">&#10148;</button>
+  </div>
+</div>
 <button id="toTop" aria-label="Back to top">↑</button>
 </body>
 </html>
