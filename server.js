@@ -68,5 +68,34 @@ app.post('/api/chat', async (req, res) => {
   }
 });
 
+
+// Contact form -> email via Gmail SMTP (set GMAIL_USER + GMAIL_APP_PASSWORD in env)
+const nodemailer = require('nodemailer');
+app.post('/api/contact', async (req, res) => {
+  try {
+    const { name, email, message } = req.body || {};
+    if (!name || !email || !message) return res.status(400).json({ ok: false, error: 'All fields are required.' });
+    if (String(message).length > 3000) return res.status(400).json({ ok: false, error: 'Message too long.' });
+    if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD)
+      return res.status(503).json({ ok: false, error: 'Contact form is not configured yet — please email shivayokeswariathappan@gmail.com directly.' });
+
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: { user: process.env.GMAIL_USER, pass: process.env.GMAIL_APP_PASSWORD },
+    });
+    await transporter.sendMail({
+      from: process.env.GMAIL_USER,
+      to: 'shivayokeswariathappan@gmail.com',
+      replyTo: String(email).slice(0, 200),
+      subject: `Portfolio contact from ${String(name).slice(0, 100)}`,
+      text: `Name: ${name}\nEmail: ${email}\n\n${message}`,
+    });
+    res.json({ ok: true });
+  } catch (e) {
+    console.error('contact error:', e.message);
+    res.status(500).json({ ok: false, error: 'Could not send right now — please email shivayokeswariathappan@gmail.com.' });
+  }
+});
+
 app.get('*', (_, res) => res.sendFile(path.join(__dirname, 'public', 'index.html')));
 app.listen(PORT, () => console.log(`Portfolio running at http://localhost:${PORT}`));
