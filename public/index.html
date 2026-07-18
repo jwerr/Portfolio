@@ -8,6 +8,8 @@
 <meta property="og:title" content="Shiva Athappan – Backend & AI Engineering" />
 <meta property="og:description" content="Backend Engineer with 3+ years of experience building scalable APIs, microservices, and AI-integrated systems — with measurable gains in latency, throughput, and reliability." />
 <meta property="og:type" content="website" />
+<meta property="og:url" content="https://portfolio-4xhz.onrender.com/" />
+<link rel="canonical" href="https://portfolio-4xhz.onrender.com/" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
@@ -128,6 +130,9 @@ cForm.addEventListener('submit', async e => {
   }
   sendBtn.disabled = false; sendBtn.textContent = 'Send Message';
 });
+
+document.getElementById('cmdkHint').addEventListener('click', openCmdk);
+document.getElementById('yr').textContent = new Date().getFullYear();
 </script>
 <style>
 /* vars */
@@ -909,6 +914,15 @@ html[data-theme="dark"] .cmdk-box { background: #16213a; }
 .cmdk-item.sel, .cmdk-item:hover { background: var(--indigo); color: #fff; }
 .cmdk-item kbd { font-family: var(--sans); font-size: 0.6rem; opacity: 0.6; letter-spacing: 0.05em; }
 .cmdk-hint { font-size: 0.62rem; color: var(--muted); padding: 0.5rem 1.2rem 0.7rem; border-top: 1px solid var(--light); }
+
+#cmdkHint { display: inline-flex; align-items: center; gap: 0.3rem; border: 1px solid var(--light);
+  background: transparent; border-radius: 0.45rem; padding: 0.28rem 0.6rem; cursor: pointer;
+  font-family: var(--sans); font-size: 0.62rem; color: var(--muted); letter-spacing: 0.05em; transition: all 0.2s; }
+#cmdkHint:hover { color: var(--indigo); border-color: var(--indigo); }
+#cmdkHint kbd { font-family: var(--sans); background: var(--off); border: 1px solid var(--light);
+  border-radius: 0.3rem; padding: 0.06rem 0.3rem; font-size: 0.6rem; }
+html[data-theme="dark"] #cmdkHint kbd { background: #1e2c49; }
+@media (max-width: 768px) { #cmdkHint { display: none; } }
 </style>
 </head>
 <body>
@@ -925,6 +939,7 @@ html[data-theme="dark"] .cmdk-box { background: #16213a; }
     <a href="#certifications" class="top-nav-link">Certifications</a>
     <a href="#education" class="top-nav-link">Education</a>
     <a href="#contact" class="top-nav-link">Contact</a>
+    <button id="cmdkHint" aria-label="Open command palette"><kbd>&#8984;K</kbd> menu</button>
     <button id="themeBtn" aria-label="Toggle dark mode" title="Toggle theme"></button>
     <div class="top-nav-socials">
       <a href="https://github.com/jwerr" target="_blank" rel="noreferrer" class="top-nav-icon" aria-label="GitHub">
@@ -1490,7 +1505,7 @@ html[data-theme="dark"] .cmdk-box { background: #16213a; }
     </div>
   </div>
   <div class="footer-bottom">
-    <p class="footer-copy">© 2026 Shiva Athappan · Worcester, MA</p>
+    <p class="footer-copy">© <span id="yr">2026</span> Shiva Athappan · Worcester, MA</p>
     <div class="footer-links">
       <a href="https://www.linkedin.com/in/shiva-athappan" target="_blank" rel="noreferrer">LinkedIn</a>
       <a href="https://github.com/jwerr" target="_blank" rel="noreferrer">GitHub</a>
@@ -1712,6 +1727,9 @@ cForm.addEventListener('submit', async e => {
   }
   sendBtn.disabled = false; sendBtn.textContent = 'Send Message';
 });
+
+document.getElementById('cmdkHint').addEventListener('click', openCmdk);
+document.getElementById('yr').textContent = new Date().getFullYear();
 </script>
 </body>
 </html>
