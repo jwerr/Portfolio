@@ -38,7 +38,23 @@ function fallback(q) {
   return "I can tell you about Shiva's experience, skills, projects, education, or availability. What would you like to know? For anything else, email shivayokeswariathappan@gmail.com.";
 }
 
+
+// Simple per-IP rate limit for the paid chat endpoint: 10 msgs/min, 60/day
+const hits = new Map();
+function rateLimited(ip) {
+  const now = Date.now();
+  const rec = hits.get(ip) || { min: [], day: [] };
+  rec.min = rec.min.filter(t => now - t < 60e3);
+  rec.day = rec.day.filter(t => now - t < 864e5);
+  if (rec.min.length >= 10 || rec.day.length >= 60) { hits.set(ip, rec); return true; }
+  rec.min.push(now); rec.day.push(now); hits.set(ip, rec);
+  if (hits.size > 5000) hits.clear(); // memory guard
+  return false;
+}
+
 app.post('/api/chat', async (req, res) => {
+  const ip = req.headers['x-forwarded-for']?.split(',')[0]?.trim() || req.socket.remoteAddress;
+  if (rateLimited(ip)) return res.status(429).json({ reply: "You're sending messages quickly — give it a minute and try again, or email shivayokeswariathappan@gmail.com." });
   try {
     const msgs = (req.body.messages || [])
       .filter(m => ['user', 'assistant'].includes(m.role) && typeof m.content === 'string')
