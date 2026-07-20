@@ -134,11 +134,19 @@ cForm.addEventListener('submit', async e => {
 document.getElementById('cmdkHint').addEventListener('click', openCmdk);
 document.getElementById('yr').textContent = new Date().getFullYear();
 
-// intro reveal (first visit per session)
+// intro: boot -> staggered name -> curtain split (once per session)
 (function(){
   const intro = document.getElementById('intro');
   try { if (sessionStorage.getItem('seen')) { intro.remove(); return; } sessionStorage.setItem('seen','1'); } catch(e){}
-  setTimeout(() => { intro.classList.add('done'); setTimeout(() => intro.remove(), 700); }, 1700);
+  const nameEl = document.getElementById('introName');
+  'Shiva Athappan'.split('').forEach((ch, i) => {
+    const s = document.createElement('span');
+    s.textContent = ch === ' ' ? '\u00A0' : ch;
+    s.style.animationDelay = (1.15 + i * 0.045) + 's';
+    nameEl.appendChild(s);
+  });
+  setTimeout(() => { intro.classList.add('done'); setTimeout(() => intro.remove(), 800); }, 2600);
+  intro.addEventListener('click', () => { intro.classList.add('done'); setTimeout(() => intro.remove(), 800); });
 })();
 </script>
 <style>
@@ -814,13 +822,12 @@ footer .sec-num { color: #fff; opacity: 0.05; }
 .fact-k { font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); font-weight: 600; padding-top: 0.15rem; white-space: nowrap; }
 .fact-v { font-size: 0.78rem; color: var(--ink); font-weight: 400; text-align: right; }
 
-/* staggered projects on desktop */
-@media (min-width: 1024px) {
-  .projects-grid { grid-template-columns: repeat(3, 1fr); }
-  .projects-grid .project-card:nth-child(3n+2):not(.hide) { transform: translateY(26px); }
-  .projects-grid .project-card:nth-child(3n+2):not(.hide):hover { transform: translateY(21px); }
-  .projects-grid { padding-bottom: 26px; }
-}
+/* projects: even 3-col grid, equal-height cards */
+@media (min-width: 1024px) { .projects-grid { grid-template-columns: repeat(3, 1fr); } }
+.project-card { display: flex; flex-direction: column; }
+.project-card-img-wrap { flex-shrink: 0; }
+.project-card-body { flex: 1; display: flex; flex-direction: column; }
+.project-card-body .project-stack { margin-top: auto; padding-top: 0.6rem; }
 
 /* stepped experience cards */
 @media (min-width: 900px) {
@@ -931,14 +938,28 @@ html[data-theme="dark"] .cmdk-box { background: #16213a; }
 html[data-theme="dark"] #cmdkHint kbd { background: #1e2c49; }
 @media (max-width: 768px) { #cmdkHint { display: none; } }
 
-/* intro reveal */
-#intro { position: fixed; inset: 0; z-index: 500; background: var(--navy); display: flex;
-  align-items: center; justify-content: center; transition: opacity 0.6s ease, visibility 0.6s; }
-#intro.done { opacity: 0; visibility: hidden; }
-#intro .intro-name { font-family: var(--serif); font-size: clamp(1.6rem, 4vw, 2.6rem); color: #fff;
-  overflow: hidden; white-space: nowrap; border-right: 2px solid var(--sky-l); width: 0;
-  animation: introType 1.1s steps(14) 0.2s forwards; }
-@keyframes introType { to { width: 14ch; } }
+/* intro: boot sequence -> name rise -> curtain split */
+#intro { position: fixed; inset: 0; z-index: 500; overflow: hidden; }
+#intro .panel { position: absolute; left: 0; right: 0; height: 50.5%; background: #101d33; transition: transform 0.7s cubic-bezier(0.7,0,0.2,1); }
+#intro .panel.t { top: 0; } #intro .panel.b { bottom: 0; }
+#intro.done .panel.t { transform: translateY(-101%); }
+#intro.done .panel.b { transform: translateY(101%); }
+#intro .stage { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center;
+  justify-content: center; gap: 1.4rem; transition: opacity 0.35s; }
+#intro.done .stage { opacity: 0; }
+.boot { font-family: Menlo, Consolas, monospace; font-size: 0.72rem; color: #5d7ba6; display: flex; flex-direction: column; gap: 0.35rem; min-height: 3.4rem; }
+.boot div { opacity: 0; animation: bootLine 0.25s forwards; }
+.boot div:nth-child(1) { animation-delay: 0.15s; } .boot div:nth-child(2) { animation-delay: 0.5s; } .boot div:nth-child(3) { animation-delay: 0.85s; }
+.boot b { color: #7ee2a8; font-weight: 600; }
+@keyframes bootLine { to { opacity: 1; } }
+.intro-name { display: flex; font-family: var(--serif); font-size: clamp(2rem, 6vw, 3.6rem); }
+.intro-name span { display: inline-block; opacity: 0; transform: translateY(0.6em);
+  background: linear-gradient(100deg, #8fd0ff, #fff 55%, #f0a58a);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  animation: riseIn 0.45s cubic-bezier(0.2,0.8,0.3,1) forwards; }
+@keyframes riseIn { to { opacity: 1; transform: translateY(0); } }
+.intro-sub { font-family: var(--sans); font-size: 0.62rem; letter-spacing: 0.35em; text-transform: uppercase;
+  color: #5d7ba6; opacity: 0; animation: bootLine 0.4s 1.9s forwards; }
 @media (prefers-reduced-motion: reduce) { #intro { display: none; } }
 
 /* gradient ink on italic title words */
@@ -953,10 +974,44 @@ footer .section-title em { background: linear-gradient(100deg, var(--sky-l), #ff
   flex-direction: column; gap: 0.5rem; padding: 1rem; text-align: center; }
 .ov-metric { font-family: var(--serif); font-size: 1.05rem; color: #fff; line-height: 1.35; }
 .ov-cta { font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--sky-l); font-weight: 600; }
+
+/* picture effects */
+.project-card-img img { filter: saturate(0.65) brightness(0.96); transition: filter 0.5s, transform 0.4s; }
+.project-card:hover .project-card-img img { filter: saturate(1.12) brightness(1.03); }
+.project-card-img-wrap::before { content: ''; position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.35) 48%, rgba(255,255,255,0.12) 52%, transparent 65%);
+  transform: translateX(-120%); transition: transform 0.7s ease; }
+.project-card:hover .project-card-img-wrap::before { transform: translateX(120%); }
+.project-card-img-wrap::after { content: ''; position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  opacity: 0; transition: opacity 0.3s;
+  background: radial-gradient(240px circle at var(--mx, 50%) var(--my, 50%), rgba(255,255,255,0.22), transparent 65%); }
+.project-card:hover .project-card-img-wrap::after { opacity: 1; }
+.project-card-overlay { z-index: 3; }
+
+/* hero photo: rotating gradient ring */
+.hero-photo-frame::after { content: ''; position: absolute; inset: -14px; border-radius: 2rem; z-index: 0;
+  background: conic-gradient(from 0deg, var(--sky), var(--coral-l), var(--indigo), var(--sky));
+  filter: blur(14px); opacity: 0.55; animation: ringSpin 9s linear infinite; }
+@keyframes ringSpin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .hero-photo-frame::after { animation: none; }
+  .project-card-img-wrap::before { display: none; }
+}
 </style>
 </head>
 <body>
-<div id="intro" aria-hidden="true"><div class="intro-name">Shiva Athappan</div></div>
+<div id="intro" aria-hidden="true">
+  <div class="panel t"></div><div class="panel b"></div>
+  <div class="stage">
+    <div class="boot">
+      <div>$ boot --profile shiva<b> &#10003;</b></div>
+      <div>$ load projects experience skills<b> &#10003;</b></div>
+      <div>$ deploy portfolio<b> &#10003; live</b></div>
+    </div>
+    <div class="intro-name" id="introName"></div>
+    <div class="intro-sub">Backend &amp; AI Engineering</div>
+  </div>
+</div>
 
 <!-- top nav -->
 <header class="top-nav">
@@ -1570,9 +1625,11 @@ document.querySelectorAll('.stat-num').forEach(el => cio.observe(el));
 
 // card tilt
 document.querySelectorAll('.project-card').forEach(c => {
+  const wrap = c.querySelector('.project-card-img-wrap');
   c.addEventListener('mousemove', e => {
     const r = c.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
     c.style.transform = `translateY(-5px) rotateX(${-y * 6}deg) rotateY(${x * 6}deg)`;
+    if (wrap) { wrap.style.setProperty('--mx', ((x + .5) * 100) + '%'); wrap.style.setProperty('--my', ((y + .5) * 100) + '%'); }
   });
   c.addEventListener('mouseleave', () => c.style.transform = '');
 });
@@ -1694,11 +1751,19 @@ cForm.addEventListener('submit', async e => {
 document.getElementById('cmdkHint').addEventListener('click', openCmdk);
 document.getElementById('yr').textContent = new Date().getFullYear();
 
-// intro reveal (first visit per session)
+// intro: boot -> staggered name -> curtain split (once per session)
 (function(){
   const intro = document.getElementById('intro');
   try { if (sessionStorage.getItem('seen')) { intro.remove(); return; } sessionStorage.setItem('seen','1'); } catch(e){}
-  setTimeout(() => { intro.classList.add('done'); setTimeout(() => intro.remove(), 700); }, 1700);
+  const nameEl = document.getElementById('introName');
+  'Shiva Athappan'.split('').forEach((ch, i) => {
+    const s = document.createElement('span');
+    s.textContent = ch === ' ' ? '\u00A0' : ch;
+    s.style.animationDelay = (1.15 + i * 0.045) + 's';
+    nameEl.appendChild(s);
+  });
+  setTimeout(() => { intro.classList.add('done'); setTimeout(() => intro.remove(), 800); }, 2600);
+  intro.addEventListener('click', () => { intro.classList.add('done'); setTimeout(() => intro.remove(), 800); });
 })();
 </script>
 </body>
