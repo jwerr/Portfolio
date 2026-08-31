@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Shivayokeshwari Athappan – Backend & AI Engineering</title>
-<meta name="description" content="MS Computer Science @ Clark University. Backend Engineer with 2+ years building scalable APIs, microservices, and AI-integrated systems." />
-<meta property="og:title" content="Shiva Athappan – Backend & AI Engineering" />
-<meta property="og:description" content="Backend Engineer with 2+ years of experience building scalable APIs, microservices, and AI-integrated systems — with measurable gains in latency, throughput, and reliability." />
+<title>Shivayokeshwari Athappan – GenAI Engineer</title>
+<meta name="description" content="MS Computer Science @ Clark University. GenAI Engineer with 2+ years building LLM-powered systems, RAG pipelines, and production backend APIs." />
+<meta property="og:title" content="Shivayokeshwari Athappan – GenAI Engineer" />
+<meta property="og:description" content="GenAI Engineer with 2+ years of experience building LLM-powered systems, RAG pipelines, and scalable backend APIs — with measurable gains in accuracy, latency, and reliability." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://portfolio-4xhz.onrender.com/" />
 <link rel="canonical" href="https://portfolio-4xhz.onrender.com/" />
@@ -15,8 +15,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232f6bba'/%3E%3Ctext x='32' y='43' font-family='Georgia,serif' font-size='30' fill='white' text-anchor='middle' font-weight='bold'%3ESA%3C/text%3E%3C/svg%3E" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Person","name":"Shivayokeshwari Athappan","jobTitle":"Backend Engineer","url":"https://portfolio-4xhz.onrender.com/","email":"mailto:shivayokeswariathappan@gmail.com","telephone":"(508) 713-8308","address":{"@type":"PostalAddress","addressLocality":"Worcester","addressRegion":"MA","addressCountry":"US"},"alumniOf":[{"@type":"CollegeOrUniversity","name":"Clark University"},{"@type":"CollegeOrUniversity","name":"Alagappa University"}],"sameAs":["https://github.com/jwerr"],"knowsAbout":["Python","FastAPI","PostgreSQL","Docker","AWS","Redis","Kafka","LangChain","RAG","Microservices"]}
-
+{"@context":"https://schema.org","@type":"Person","name":"Shivayokeshwari Athappan","jobTitle":"GenAI Engineer","url":"https://portfolio-4xhz.onrender.com/","email":"mailto:shivayokeswariathappan@gmail.com","telephone":"(508) 713-8308","address":{"@type":"PostalAddress","addressLocality":"Worcester","addressRegion":"MA","addressCountry":"US"},"alumniOf":[{"@type":"CollegeOrUniversity","name":"Clark University"},{"@type":"CollegeOrUniversity","name":"Alagappa University"}],"sameAs":["https://github.com/jwerr"],"knowsAbout":["Generative AI","Large Language Models","LangChain","LangGraph","Retrieval-Augmented Generation","FAISS","Prompt Engineering","OpenAI API","Python","FastAPI","PostgreSQL","Docker","AWS","Redis","Microservices"]}
 // chat widget
 const cBtn = document.getElementById('chatBtn'), cPanel = document.getElementById('chatPanel'),
       cLog = document.getElementById('chatLog'), cIn = document.getElementById('chatIn'),
@@ -59,14 +58,12 @@ async function send() {
 }
 cSend.addEventListener('click', send);
 cIn.addEventListener('keydown', e => { if (e.key === 'Enter') send(); });
-
 // theme toggle (persisted)
 const themeBtn = document.getElementById('themeBtn');
 const setTheme = t => { document.documentElement.dataset.theme = t; try { localStorage.setItem('theme', t); } catch(e){} };
 try { const saved = localStorage.getItem('theme'); if (saved) setTheme(saved);
   else if (matchMedia('(prefers-color-scheme: dark)').matches) setTheme('dark'); } catch(e){}
 themeBtn.addEventListener('click', () => setTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'));
-
 // command palette
 const cmdk = document.getElementById('cmdk'), cmdkIn = document.getElementById('cmdkIn'), cmdkList = document.getElementById('cmdkList');
 const actions = [
@@ -108,7 +105,6 @@ cmdkIn.addEventListener('input', () => {
   sel = 0; renderCmdk();
 });
 cmdk.addEventListener('click', e => { if (e.target === cmdk) closeCmdk(); });
-
 // contact form -> /api/contact
 const cForm = document.getElementById('contactForm'), fStatus = document.getElementById('formStatus'), sendBtn = document.getElementById('sendBtn');
 cForm.addEventListener('submit', async e => {
@@ -130,10 +126,8 @@ cForm.addEventListener('submit', async e => {
   }
   sendBtn.disabled = false; sendBtn.textContent = 'Send Message';
 });
-
 document.getElementById('cmdkHint').addEventListener('click', openCmdk);
 document.getElementById('yr').textContent = new Date().getFullYear();
-
 // intro: boot -> staggered name -> curtain split (once per session)
 (function(){
   const intro = document.getElementById('intro');
@@ -141,7 +135,7 @@ document.getElementById('yr').textContent = new Date().getFullYear();
   const nameEl = document.getElementById('introName');
   'Shiva Athappan'.split('').forEach((ch, i) => {
     const s = document.createElement('span');
-    s.textContent = ch === ' ' ? '\u00A0' : ch;
+    s.textContent = ch === ' ' ? ' ' : ch;
     s.style.animationDelay = (1.15 + i * 0.045) + 's';
     nameEl.appendChild(s);
   });
@@ -170,9 +164,7 @@ document.getElementById('yr').textContent = new Date().getFullYear();
   --shadow: 0 2px 20px rgba(30, 58, 95, .08);
   --shadow-h: 0 8px 40px rgba(30, 58, 95, .16);
 }
-
 html { scroll-behavior: smooth; }
-
 body {
   font-family: var(--sans);
   background: var(--white);
@@ -182,7 +174,6 @@ body {
 }
 * { box-sizing: border-box; }
 a { color: inherit; }
-
 /* scroll reveal */
 .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.55s ease, transform 0.55s ease; }
 .reveal.visible { opacity: 1; transform: translateY(0); }
@@ -191,7 +182,6 @@ a { color: inherit; }
 @media (prefers-reduced-motion: reduce) {
   .reveal, .reveal-x { opacity: 1; transform: none; transition: none; }
 }
-
 /* nav */
 .top-nav {
   position: fixed;
@@ -229,7 +219,6 @@ a { color: inherit; }
 .top-nav-icon { color: #9ca3af; display: flex; align-items: center; transition: color 0.2s; }
 .top-nav-icon:hover { color: var(--indigo); }
 .top-nav-icon svg { width: 16px; height: 16px; }
-
 /* hamburger */
 .hamburger {
   display: none;
@@ -251,7 +240,6 @@ a { color: inherit; }
 .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
 .hamburger.open span:nth-child(2) { opacity: 0; }
 .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
 /* mobile menu */
 .mobile-menu {
   display: none;
@@ -288,7 +276,6 @@ a { color: inherit; }
 .mobile-menu-socials a { color: #9ca3af; display: flex; align-items: center; transition: color 0.2s; }
 .mobile-menu-socials a:hover { color: var(--indigo); }
 .mobile-menu-socials svg { width: 18px; height: 18px; }
-
 /* hero */
 .section-hero {
   min-height: calc(100vh - 60px);
@@ -342,7 +329,6 @@ a { color: inherit; }
   letter-spacing: 0.04em;
 }
 .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
-
 /* hero photo */
 .hero-photo-frame { width: 270px; height: 350px; position: relative; }
 .hero-photo-frame::before {
@@ -370,7 +356,6 @@ a { color: inherit; }
   font-weight: 600;
   letter-spacing: 0.04em;
 }
-
 /* sections */
 section { padding: 5rem clamp(1.5rem, 7vw, 6rem); }
 .eyebrow {
@@ -396,7 +381,6 @@ hr.rule {
   width: 36px;
   margin: 0.8rem 0 2.8rem;
 }
-
 /* buttons */
 .btn-primary {
   display: inline-flex;
@@ -435,7 +419,6 @@ hr.rule {
   font-family: var(--sans);
 }
 .btn-outline:hover { background: #eef2ff; transform: translateY(-2px); }
-
 /* about */
 .about-body { max-width: 780px; }
 .about-body p { font-size: 1rem; font-weight: 300; color: var(--mid); line-height: 1.95; margin: 0 0 1.4rem; }
@@ -462,7 +445,6 @@ hr.rule {
   transition: all 0.3s;
 }
 .logo-box:hover { transform: scale(1.05); }
-
 /* filters */
 .filter-pills { display: flex; gap: 0.6rem; margin-bottom: 2.5rem; flex-wrap: wrap; }
 .filter-pill {
@@ -480,7 +462,6 @@ hr.rule {
 }
 .filter-pill:hover { background: #eef2ff; }
 .filter-pill.active { background: var(--indigo); color: #fff; }
-
 /* projects */
 .projects-grid {
   display: grid;
@@ -556,7 +537,6 @@ hr.rule {
 }
 .project-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.65; font-weight: 300; margin: 0 0 0.7rem; }
 .project-stack { font-size: 0.62rem; letter-spacing: 0.05em; color: var(--sky); font-weight: 500; text-transform: uppercase; }
-
 /* experience */
 .exp-wrap { max-width: 780px; }
 .exp-item { display: flex; gap: 1.2rem; align-items: stretch; margin-bottom: 1rem; }
@@ -586,7 +566,6 @@ hr.rule {
   padding-left: 1rem; position: relative;
 }
 .exp-bullets li::before { content: '›'; position: absolute; left: 0; color: var(--indigo); font-weight: 600; }
-
 /* certifications */
 .awards-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.2rem; }
 .award-card {
@@ -611,7 +590,6 @@ hr.rule {
 .award-year { font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--sky); font-weight: 500; white-space: nowrap; }
 .award-org { font-size: 0.68rem; color: var(--muted); margin: 0.2rem 0 0.6rem; letter-spacing: 0.04em; }
 .award-desc { font-size: 0.8rem; font-weight: 300; color: var(--mid); line-height: 1.7; margin: 0; }
-
 /* skills */
 .skills-grid {
   display: grid;
@@ -642,7 +620,6 @@ hr.rule {
   padding: 0.3rem 0.75rem; border-radius: 2rem;
   letter-spacing: 0.03em;
 }
-
 /* education */
 .edu-list { display: flex; flex-direction: column; gap: 1rem; max-width: 700px; }
 .edu-accordion { border: 1px solid var(--light); border-radius: 1rem; overflow: hidden; background: #fff; }
@@ -677,7 +654,6 @@ hr.rule {
   padding: 0.28rem 0.75rem; border-radius: 2rem;
   margin-top: 0.8rem; font-weight: 500;
 }
-
 /* contact */
 footer { background: var(--navy); padding: 5rem clamp(1.5rem, 7vw, 6rem) 3rem; }
 footer .eyebrow { color: var(--sky-l); }
@@ -737,10 +713,8 @@ footer .section-title em { color: var(--sky-l); }
   font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase;
   color: rgba(255,255,255,0.3); text-decoration: none;
 }
-
 .bg-light { background: var(--off); }
 .bg-white { background: #fff; }
-
 /* tablet */
 @media (max-width: 1024px) {
   .top-nav { padding: 0 2rem; }
@@ -749,7 +723,6 @@ footer .section-title em { color: var(--sky-l); }
   section { padding-left: 2.5rem !important; padding-right: 2.5rem !important; }
   .contact-grid { gap: 3rem; }
 }
-
 /* mobile */
 @media (max-width: 768px) {
   .top-nav-links { display: none; }
@@ -771,7 +744,6 @@ footer .section-title em { color: var(--sky-l); }
   .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
   .c-val { font-size: 0.75rem; word-break: break-all; }
 }
-
 /* small screens */
 @media (max-width: 480px) {
   section { padding: 3rem 1.2rem !important; }
@@ -780,7 +752,6 @@ footer .section-title em { color: var(--sky-l); }
   .edu-header { padding: 1rem 1.2rem; }
   .edu-header-text { font-size: 0.68rem; }
 }
-
 /* misc ui */
 #scrollbar { position: fixed; top: 0; left: 0; height: 3px; width: 0; z-index: 300;
   background: linear-gradient(90deg, var(--indigo), var(--sky), var(--coral)); transition: width 0.1s linear; }
@@ -806,14 +777,12 @@ footer .section-title em { color: var(--sky-l); }
 #toTop.show { opacity: 1; pointer-events: auto; }
 #toTop:hover { transform: translateY(-3px); }
 @media (prefers-reduced-motion: reduce) { .hero-blob { animation: none; } .hero-role::after { animation: none; } }
-
 /* layout rhythm */
 section > div > .section-title, footer .section-title { position: relative; z-index: 1; }
 .sec-head { position: relative; }
 .sec-num { position: absolute; top: -3.2rem; left: -0.8rem; font-family: var(--serif); font-size: clamp(5rem, 10vw, 8rem);
   color: var(--navy); opacity: 0.05; font-weight: 600; line-height: 1; pointer-events: none; user-select: none; z-index: 0; }
 footer .sec-num { color: #fff; opacity: 0.05; }
-
 /* about layout */
 .about-cols { display: grid; grid-template-columns: 1fr 300px; gap: 3.5rem; align-items: start; max-width: 1100px; }
 .fact-card { position: sticky; top: 90px; background: var(--off); border: 1px solid var(--light); border-radius: 1.2rem; padding: 1.8rem; }
@@ -821,14 +790,12 @@ footer .sec-num { color: #fff; opacity: 0.05; }
 .fact-row:last-child { border-bottom: none; }
 .fact-k { font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); font-weight: 600; padding-top: 0.15rem; white-space: nowrap; }
 .fact-v { font-size: 0.78rem; color: var(--ink); font-weight: 400; text-align: right; }
-
 /* projects: even 3-col grid, equal-height cards */
 @media (min-width: 1024px) { .projects-grid { grid-template-columns: repeat(3, 1fr); } }
 .project-card { display: flex; flex-direction: column; }
 .project-card-img-wrap { flex-shrink: 0; }
 .project-card-body { flex: 1; display: flex; flex-direction: column; }
 .project-card-body .project-stack { margin-top: auto; padding-top: 0.6rem; }
-
 /* stepped experience cards */
 @media (min-width: 900px) {
   .exp-wrap { max-width: 860px; }
@@ -837,7 +804,6 @@ footer .sec-num { color: #fff; opacity: 0.05; }
 }
 .exp-card { border-left: 3px solid var(--sky); }
 .exp-card:hover { box-shadow: 0 8px 28px rgba(30,58,95,0.12); }
-
 /* hero scroll cue */
 .scroll-cue { position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%);
   width: 24px; height: 40px; border: 2px solid rgba(30,58,95,0.25); border-radius: 14px; }
@@ -846,7 +812,6 @@ footer .sec-num { color: #fff; opacity: 0.05; }
 @keyframes cue { 0% { transform: translateY(0); opacity: 1; } 70% { transform: translateY(12px); opacity: 0; } 100% { opacity: 0; } }
 @media (max-width: 768px) { .about-cols { grid-template-columns: 1fr; } .fact-card { position: static; } .scroll-cue { display: none; } }
 @media (prefers-reduced-motion: reduce) { .scroll-cue::after { animation: none; } }
-
 /* chat widget */
 #chatBtn { position: fixed; bottom: 24px; left: 24px; width: 54px; height: 54px; border-radius: 50%;
   background: var(--navy); color: #fff; border: none; cursor: pointer; z-index: 260;
@@ -870,14 +835,12 @@ footer .sec-num { color: #fff; opacity: 0.05; }
 .chat-input input { flex: 1; border: none; outline: none; padding: 0.85rem 1rem; font-family: var(--sans); font-size: 0.8rem; }
 .chat-input button { background: none; border: none; color: var(--indigo); cursor: pointer; padding: 0 1rem; font-size: 1.05rem; }
 @media (max-width: 768px) { #chatPanel { bottom: 88px; } }
-
 /* skills polish */
 #skills .chips span.core { background: var(--indigo); color: #fff; font-weight: 500; }
 #skills .skill-card { transition: transform 0.2s, box-shadow 0.2s; }
 #skills .skill-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(30,58,95,0.1); }
 .skills-note { font-size: 0.68rem; color: var(--muted); margin: 1.4rem 0 0; letter-spacing: 0.03em; }
 .skills-note i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; background: var(--indigo); vertical-align: -1px; margin-right: 6px; }
-
 /* dark theme */
 html[data-theme="dark"] body { background: #0d1422; color: #dbe4f0; }
 html[data-theme="dark"] { --ink: #e8eef7; --mid: #a8b6ca; --muted: #7e8ca1; --navy: #cfe0f5; --light: #263450; --off: #111a2c; }
@@ -905,14 +868,12 @@ html[data-theme="dark"] .msg.a { background: #16213a; border-color: #263450; }
 html[data-theme="dark"] .chat-input { background: #16213a; border-color: #263450; }
 html[data-theme="dark"] .chat-input input { background: #16213a; color: #dbe4f0; }
 html, body { transition: background 0.3s, color 0.3s; }
-
 /* theme toggle in nav */
 #themeBtn { background: none; border: 1.5px solid var(--light); border-radius: 2rem; cursor: pointer;
   width: 34px; height: 20px; position: relative; padding: 0; }
 #themeBtn::after { content: '\2600'; position: absolute; top: 50%; left: 3px; transform: translateY(-50%);
   font-size: 11px; line-height: 1; transition: left 0.25s; }
 html[data-theme="dark"] #themeBtn::after { content: '\1F319'; left: 16px; }
-
 /* command palette */
 #cmdk { position: fixed; inset: 0; background: rgba(10,16,28,0.55); backdrop-filter: blur(4px);
   z-index: 400; display: none; align-items: flex-start; justify-content: center; padding-top: 14vh; }
@@ -928,7 +889,6 @@ html[data-theme="dark"] .cmdk-box { background: #16213a; }
 .cmdk-item.sel, .cmdk-item:hover { background: var(--indigo); color: #fff; }
 .cmdk-item kbd { font-family: var(--sans); font-size: 0.6rem; opacity: 0.6; letter-spacing: 0.05em; }
 .cmdk-hint { font-size: 0.62rem; color: var(--muted); padding: 0.5rem 1.2rem 0.7rem; border-top: 1px solid var(--light); }
-
 #cmdkHint { display: inline-flex; align-items: center; gap: 0.3rem; border: 1px solid var(--light);
   background: transparent; border-radius: 0.45rem; padding: 0.28rem 0.6rem; cursor: pointer;
   font-family: var(--sans); font-size: 0.62rem; color: var(--muted); letter-spacing: 0.05em; transition: all 0.2s; }
@@ -937,7 +897,6 @@ html[data-theme="dark"] .cmdk-box { background: #16213a; }
   border-radius: 0.3rem; padding: 0.06rem 0.3rem; font-size: 0.6rem; }
 html[data-theme="dark"] #cmdkHint kbd { background: #1e2c49; }
 @media (max-width: 768px) { #cmdkHint { display: none; } }
-
 /* intro: boot sequence -> name rise -> curtain split */
 #intro { position: fixed; inset: 0; z-index: 500; overflow: hidden; }
 #intro .panel { position: absolute; left: 0; right: 0; height: 50.5%; background: #101d33; transition: transform 0.7s cubic-bezier(0.7,0,0.2,1); }
@@ -961,20 +920,17 @@ html[data-theme="dark"] #cmdkHint kbd { background: #1e2c49; }
 .intro-sub { font-family: var(--sans); font-size: 0.62rem; letter-spacing: 0.35em; text-transform: uppercase;
   color: #5d7ba6; opacity: 0; animation: bootLine 0.4s 1.9s forwards; }
 @media (prefers-reduced-motion: reduce) { #intro { display: none; } }
-
 /* gradient ink on italic title words */
 .section-title em, .hero-name em {
   background: linear-gradient(100deg, var(--indigo), var(--sky) 55%, var(--coral));
   -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
 footer .section-title em { background: linear-gradient(100deg, var(--sky-l), #fff);
   -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
-
 /* project hover overlay: metric + view code */
 .project-card-overlay { background: linear-gradient(to top, rgba(13,20,34,0.92), rgba(13,20,34,0.35));
   flex-direction: column; gap: 0.5rem; padding: 1rem; text-align: center; }
 .ov-metric { font-family: var(--serif); font-size: 1.05rem; color: #fff; line-height: 1.35; }
 .ov-cta { font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--sky-l); font-weight: 600; }
-
 /* picture effects */
 .project-card-img img { filter: saturate(0.65) brightness(0.96); transition: filter 0.5s, transform 0.4s; }
 .project-card:hover .project-card-img img { filter: saturate(1.12) brightness(1.03); }
@@ -987,14 +943,7 @@ footer .section-title em { background: linear-gradient(100deg, var(--sky-l), #ff
   background: radial-gradient(240px circle at var(--mx, 50%) var(--my, 50%), rgba(255,255,255,0.22), transparent 65%); }
 .project-card:hover .project-card-img-wrap::after { opacity: 1; }
 .project-card-overlay { z-index: 3; }
-
-/* hero photo: rotating gradient ring */
-.hero-photo-frame::after { content: ''; position: absolute; inset: -14px; border-radius: 2rem; z-index: 0;
-  background: conic-gradient(from 0deg, var(--sky), var(--coral-l), var(--indigo), var(--sky));
-  filter: blur(14px); opacity: 0.55; animation: ringSpin 9s linear infinite; }
-@keyframes ringSpin { to { transform: rotate(360deg); } }
 @media (prefers-reduced-motion: reduce) {
-  .hero-photo-frame::after { animation: none; }
   .project-card-img-wrap::before { display: none; }
 }
 </style>
@@ -1009,10 +958,9 @@ footer .section-title em { background: linear-gradient(100deg, var(--sky-l), #ff
       <div>$ deploy portfolio<b> &#10003; live</b></div>
     </div>
     <div class="intro-name" id="introName"></div>
-    <div class="intro-sub">Backend &amp; AI Engineering</div>
+    <div class="intro-sub">GenAI Engineer</div>
   </div>
 </div>
-
 <!-- top nav -->
 <header class="top-nav">
   <a href="#home" class="top-nav-brand">Shivayokeshwari <span style="color: var(--indigo)">Athappan</span></a>
@@ -1041,7 +989,6 @@ footer .section-title em { background: linear-gradient(100deg, var(--sky-l), #ff
   </nav>
   <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
 </header>
-
 <!-- Mobile menu -->
 <div class="mobile-menu" id="mobileMenu">
   <a href="#about" class="mobile-menu-link">About</a>
@@ -1064,27 +1011,25 @@ footer .section-title em { background: linear-gradient(100deg, var(--sky-l), #ff
     </a>
   </div>
 </div>
-
 <div id="scrollbar"></div>
 <main style="padding-top: 60px;">
-
   <!-- hero -->
   <section id="home" class="section-hero" style="padding: 4rem clamp(1.5rem, 7vw, 6rem);">
     <div class="hero-blob" style="width:340px;height:340px;background:var(--sky);top:-80px;right:8%;"></div>
     <div class="hero-blob" style="width:280px;height:280px;background:var(--coral-l);bottom:-100px;left:-60px;animation-delay:-7s;"></div>
     <div class="hero-text reveal">
-      <span class="hero-badge">✦ Open to Backend &amp; Software Engineering Roles</span>
+      <span class="hero-badge">✦ Open to GenAI Engineer Roles</span>
       <h1 class="hero-name">Hi, I'm<br /><em>Shivayokeshwari Athappan</em></h1>
       <p style="font-size:1.05rem;margin:-0.4rem 0 1rem;"><span class="hero-role" id="heroRole"></span></p>
       <p class="hero-tagline">
-        MS Computer Science @ Clark University. Backend engineer with 2+ years of experience building scalable APIs, microservices, and AI-integrated systems — shipping features with measurable gains in latency, throughput, and reliability.
+        MS Computer Science @ Clark University. GenAI Engineer with 2+ years of experience building LLM-powered systems — RAG pipelines, LangChain orchestration, and OpenAI-integrated services — on top of the scalable APIs and backend infrastructure that keep them fast and reliable.
       </p>
       <div class="skill-chips">
-        <span class="skill-chip">Python &amp; FastAPI</span>
-        <span class="skill-chip">Microservices &amp; APIs</span>
-        <span class="skill-chip">AWS &amp; Docker</span>
-        <span class="skill-chip">PostgreSQL &amp; Redis</span>
         <span class="skill-chip">LLMs, RAG &amp; LangChain</span>
+        <span class="skill-chip">Prompt Engineering &amp; OpenAI API</span>
+        <span class="skill-chip">Vector Search (FAISS)</span>
+        <span class="skill-chip">Python &amp; FastAPI</span>
+        <span class="skill-chip">AWS &amp; Docker</span>
       </div>
       <div class="hero-btns">
         <a href="#projects" class="btn-primary">View My Work</a>
@@ -1099,7 +1044,6 @@ footer .section-title em { background: linear-gradient(100deg, var(--sky-l), #ff
     </div>
     <div class="scroll-cue"></div>
   </section>
-
   <!-- stats -->
   <section id="numbers" class="bg-light" style="padding-top: 4rem; padding-bottom: 4rem;">
     <div class="reveal">
@@ -1107,19 +1051,18 @@ footer .section-title em { background: linear-gradient(100deg, var(--sky-l), #ff
       <h2 class="section-title">Numbers that <em>speak.</em></h2>
       <hr class="rule" />
       <div class="stats-band" style="max-width: none; padding: 0; grid-template-columns: repeat(4, 1fr);">
-        <div class="stat"><div class="stat-num" data-count="3" data-suffix="+">0</div><div class="stat-label">Years Experience</div></div>
+        <div class="stat"><div class="stat-num" data-count="2" data-suffix="+">0</div><div class="stat-label">Years Experience</div></div>
+        <div class="stat"><div class="stat-num" data-count="10" data-suffix="K+">0</div><div class="stat-label">Docs Indexed for RAG</div></div>
+        <div class="stat"><div class="stat-num" data-count="90" data-suffix="%+">0</div><div class="stat-label">RAG Answer Accuracy</div></div>
+        <div class="stat"><div class="stat-num" data-count="60" data-suffix="%">0</div><div class="stat-label">Screening Time Saved with LLMs</div></div>
         <div class="stat"><div class="stat-num" data-count="6">0</div><div class="stat-label">Projects Shipped</div></div>
         <div class="stat"><div class="stat-num" data-count="65" data-suffix="%">0</div><div class="stat-label">Latency Cut with Redis</div></div>
-        <div class="stat"><div class="stat-num" data-count="10" data-suffix="K+">0</div><div class="stat-label">Docs Indexed for RAG</div></div>
         <div class="stat"><div class="stat-num" data-count="20" data-suffix="+">0</div><div class="stat-label">Reusable Modules Built</div></div>
         <div class="stat"><div class="stat-num" data-count="30" data-suffix="%">0</div><div class="stat-label">Faster SQL Queries</div></div>
-        <div class="stat"><div class="stat-num" data-count="60" data-suffix="%">0</div><div class="stat-label">Screening Time Saved</div></div>
-        <div class="stat"><div class="stat-num" data-count="50" data-suffix="%">0</div><div class="stat-label">Faster Deploys via CI/CD</div></div>
       </div>
     </div>
   </section>
   </div>
-
   <!-- about -->
   <section id="about" class="bg-white">
     <div class="reveal">
@@ -1128,9 +1071,9 @@ footer .section-title em { background: linear-gradient(100deg, var(--sky-l), #ff
       <hr class="rule" />
       <div class="about-cols">
       <div class="about-body">
-        <p><strong>Hi, I'm Shiva.</strong> A Computer Science graduate student at Clark University and a backend engineer who cares about the parts of software users never see — the APIs, queues, caches, and pipelines that make everything else feel fast and reliable.</p>
-        <p>Over 2+ years across Connex AI and IdeaEdu, I've engineered Python/FastAPI services that cut API latency by 20%, optimized PostgreSQL schemas and queries for 30% faster execution, and shipped LangChain/OpenAI pipelines for document summarization and intent classification. I've built systems end-to-end: REST APIs with OAuth2/JWT auth, Redis caching and rate limiting, Kafka and RabbitMQ messaging, and CI/CD automation with GitHub Actions to AWS.</p>
-        <p>My goal is to build backend systems where performance is measured, not assumed — bringing production discipline to AI-integrated products and clean, reusable engineering to every service I ship.</p>
+        <p><strong>Hi, I'm Shiva.</strong> A Computer Science graduate student at Clark University and a GenAI engineer who builds production systems on top of large language models — RAG pipelines, LangChain-orchestrated services, and LLM-powered features — backed by the scalable APIs and infrastructure that keep them reliable.</p>
+        <p>Over 2+ years across Connex AI and IdeaEdu, I've shipped LangChain/OpenAI pipelines for document summarization and intent classification, architected a RAG backend indexing 10,000+ document chunks with FAISS at 90%+ accuracy, and built an LLM-powered resume screener that cut manual review time by 60%. Underneath that, I've engineered the backend to match: Python/FastAPI services with 20% lower latency, PostgreSQL schemas optimized for 30% faster queries, Redis caching, and CI/CD automation with GitHub Actions to AWS.</p>
+        <p>My goal is to build GenAI systems where accuracy and performance are measured, not assumed — bringing production discipline to LLM-integrated products and clean, reusable engineering to every service I ship.</p>
         <div style="margin-top: 2.5rem;">
           <p class="worked-label">Where I've worked</p>
           <div class="logo-row">
@@ -1141,17 +1084,16 @@ footer .section-title em { background: linear-gradient(100deg, var(--sky-l), #ff
         </div>
       </div>
       <aside class="fact-card">
-        <div class="fact-row"><span class="fact-k">Role</span><span class="fact-v">Backend Engineer</span></div>
+        <div class="fact-row"><span class="fact-k">Role</span><span class="fact-v">GenAI Engineer</span></div>
         <div class="fact-row"><span class="fact-k">Location</span><span class="fact-v">Worcester, MA</span></div>
         <div class="fact-row"><span class="fact-k">Degree</span><span class="fact-v">MS CS, Clark University</span></div>
         <div class="fact-row"><span class="fact-k">Experience</span><span class="fact-v">2+ years</span></div>
-        <div class="fact-row"><span class="fact-k">Focus</span><span class="fact-v">APIs · Cloud · AI systems</span></div>
+        <div class="fact-row"><span class="fact-k">Focus</span><span class="fact-v">LLMs · RAG · Backend APIs</span></div>
         <div class="fact-row"><span class="fact-k">Status</span><span class="fact-v" style="color:#16a34a;">Open to work</span></div>
       </aside>
       </div>
     </div>
   </section>
-
   <!-- projects -->
   <section id="projects">
     <div class="reveal">
@@ -1161,28 +1103,12 @@ footer .section-title em { background: linear-gradient(100deg, var(--sky-l), #ff
       <p style="font-size: 0.88rem; font-weight: 300; color: var(--mid); margin-bottom: 2rem; max-width: 560px; line-height: 1.75;">
         From production-grade backend infrastructure to AI-powered systems — each project is on GitHub. Click any card to explore the code.
       </p>
-
       <div class="filter-pills">
         <button class="filter-pill active" data-filter="all">All</button>
-        <button class="filter-pill" data-filter="backend">Backend &amp; Cloud</button>
         <button class="filter-pill" data-filter="ai">AI &amp; ML</button>
+        <button class="filter-pill" data-filter="backend">Backend &amp; Cloud</button>
       </div>
-
       <div class="projects-grid">
-        <a href="https://github.com/jwerr/LinkSnap" target="_blank" rel="noreferrer" class="project-card" data-tag="backend">
-          <div class="project-card-img-wrap">
-            <div class="project-card-img grad-1"><img src="LS.png" alt="LinkSnap — URL shortener" style="width:100%;height:100%;object-fit:cover;object-position:top" loading="lazy" /></div>
-            <div class="project-card-overlay"><div class="ov-metric">65% faster redirects<br/>with Redis caching</div><div class="ov-cta">View code &#8594;</div></div>
-          </div>
-          <div class="project-card-body">
-            <span class="p-award">⚡ 65% Faster Redirects with Redis Caching</span>
-            <span class="project-tag tag-backend">Backend &amp; Cloud</span>
-            <h3 class="project-title">LinkSnap: Production-Grade URL Shortener</h3>
-            <p class="project-desc">REST API with JWT authentication and rate limiting; PostgreSQL on AWS RDS, Dockerized deployment to EC2 via GitHub Actions CI/CD, and click analytics logged to S3 with a dedicated stats endpoint.</p>
-            <span class="project-stack">FastAPI · PostgreSQL · Redis · Docker · AWS · CI/CD</span>
-          </div>
-        </a>
-
         <a href="https://github.com/jwerr/AI_Agent" target="_blank" rel="noreferrer" class="project-card" data-tag="ai">
           <div class="project-card-img-wrap">
             <div class="project-card-img grad-2"><img src="AA.png" alt="AI Auto Agent — document Q&A" style="width:100%;height:100%;object-fit:cover;object-position:top" loading="lazy" /></div>
@@ -1196,7 +1122,6 @@ footer .section-title em { background: linear-gradient(100deg, var(--sky-l), #ff
             <span class="project-stack">Python · LangChain · RAG · FAISS · FastAPI · Streamlit</span>
           </div>
         </a>
-
         <a href="https://github.com/jwerr/CleverHire" target="_blank" rel="noreferrer" class="project-card" data-tag="ai">
           <div class="project-card-img-wrap">
             <div class="project-card-img grad-3"><img src="CH.png" alt="CleverHire — AI resume screener" style="width:100%;height:100%;object-fit:cover;object-position:top" loading="lazy" /></div>
@@ -1210,7 +1135,6 @@ footer .section-title em { background: linear-gradient(100deg, var(--sky-l), #ff
             <span class="project-stack">FastAPI · React.js · OpenAI API · PostgreSQL · CI/CD</span>
           </div>
         </a>
-
         <a href="https://github.com/jwerr/AI-Summariser" target="_blank" rel="noreferrer" class="project-card" data-tag="ai">
           <div class="project-card-img-wrap">
             <div class="project-card-img grad-4"><img src="AS.png" alt="AI-Summariser — meeting summarizer" style="width:100%;height:100%;object-fit:cover;object-position:top" loading="lazy" /></div>
@@ -1224,7 +1148,19 @@ footer .section-title em { background: linear-gradient(100deg, var(--sky-l), #ff
             <span class="project-stack">FastAPI · JavaScript · LLMs · Full-Stack</span>
           </div>
         </a>
-
+        <a href="https://github.com/jwerr/LinkSnap" target="_blank" rel="noreferrer" class="project-card" data-tag="backend">
+          <div class="project-card-img-wrap">
+            <div class="project-card-img grad-1"><img src="LS.png" alt="LinkSnap — URL shortener" style="width:100%;height:100%;object-fit:cover;object-position:top" loading="lazy" /></div>
+            <div class="project-card-overlay"><div class="ov-metric">65% faster redirects<br/>with Redis caching</div><div class="ov-cta">View code &#8594;</div></div>
+          </div>
+          <div class="project-card-body">
+            <span class="p-award">⚡ 65% Faster Redirects with Redis Caching</span>
+            <span class="project-tag tag-backend">Backend &amp; Cloud</span>
+            <h3 class="project-title">LinkSnap: Production-Grade URL Shortener</h3>
+            <p class="project-desc">REST API with JWT authentication and rate limiting; PostgreSQL on AWS RDS, Dockerized deployment to EC2 via GitHub Actions CI/CD, and click analytics logged to S3 with a dedicated stats endpoint.</p>
+            <span class="project-stack">FastAPI · PostgreSQL · Redis · Docker · AWS · CI/CD</span>
+          </div>
+        </a>
         <a href="https://github.com/jwerr/fraud_detection" target="_blank" rel="noreferrer" class="project-card" data-tag="ai">
           <div class="project-card-img-wrap">
             <div class="project-card-img grad-5"><img src="FD.png" alt="Fraud detection with machine learning" style="width:100%;height:100%;object-fit:cover;object-position:top" loading="lazy" /></div>
@@ -1237,7 +1173,6 @@ footer .section-title em { background: linear-gradient(100deg, var(--sky-l), #ff
             <span class="project-stack">Python · Scikit-learn · Machine Learning</span>
           </div>
         </a>
-
         <a href="https://github.com/jwerr/Online-grocery-store" target="_blank" rel="noreferrer" class="project-card" data-tag="backend">
           <div class="project-card-img-wrap">
             <div class="project-card-img grad-6"><img src="GS.png" alt="Online grocery store" style="width:100%;height:100%;object-fit:cover;object-position:top" loading="lazy" /></div>
@@ -1253,7 +1188,6 @@ footer .section-title em { background: linear-gradient(100deg, var(--sky-l), #ff
       </div>
     </div>
   </section>
-
   <!-- experience -->
   <section id="experience" class="bg-light">
     <div class="reveal">
@@ -1261,7 +1195,6 @@ footer .section-title em { background: linear-gradient(100deg, var(--sky-l), #ff
       <h2 class="section-title">How I've made an <em>impact.</em></h2>
       <hr class="rule" />
       <div class="exp-wrap">
-
         <div class="exp-item">
           <div class="exp-rail">
             <div class="exp-logo" style="background: #1e3a5f;">CX</div>
@@ -1272,14 +1205,13 @@ footer .section-title em { background: linear-gradient(100deg, var(--sky-l), #ff
             <p class="exp-role">Junior Software Developer Intern — Core Engine Team</p>
             <p class="exp-period">Oct 2025 – Present</p>
             <ul class="exp-bullets">
+              <li>Deployed 3 LangChain/OpenAI pipelines for document summarization and intent classification, boosting feature throughput by 15%.</li>
               <li>Engineered Python/FastAPI backend services, reducing API latency by 20% through async optimization and query tuning.</li>
               <li>Optimized 10+ SQL queries and redesigned PostgreSQL schemas, cutting average execution time by 30%.</li>
-              <li>Deployed 3 LangChain/OpenAI pipelines for document summarization and intent classification, boosting feature throughput by 15%.</li>
               <li>Built 20+ reusable backend modules adopted across teams, trimming average build time by 25%.</li>
             </ul>
           </div>
         </div>
-
         <div class="exp-item">
           <div class="exp-rail">
             <div class="exp-logo" style="background: #2f6bba;">IE</div>
@@ -1298,12 +1230,9 @@ footer .section-title em { background: linear-gradient(100deg, var(--sky-l), #ff
           </div>
         </div>
 
-      
-
       </div>
     </div>
   </section>
-
   <!-- skills -->
   <section id="skills">
     <div class="reveal">
@@ -1312,12 +1241,20 @@ footer .section-title em { background: linear-gradient(100deg, var(--sky-l), #ff
       <hr class="rule" />
       <div class="skills-grid">
         <div class="skill-card">
-          <h3><span style="font-size:1rem;margin-right:0.45rem;">&#128220;</span>Languages</h3>
-          <div class="chips"><span class="core">Python</span><span>Java</span><span class="core">SQL</span><span>JavaScript</span><span>Kotlin</span><span>C++</span></div>
+          <h3><span style="font-size:1rem;margin-right:0.45rem;">&#129504;</span>AI / GenAI</h3>
+          <div class="chips"><span class="core">LangChain</span><span class="core">LangGraph</span><span class="core">RAG</span><span class="core">FAISS</span><span>Vector Databases</span><span>Embeddings</span><span>Prompt Engineering</span><span>NLP</span><span>Hugging Face</span><span>Scikit-learn</span><span>TensorFlow</span></div>
+        </div>
+        <div class="skill-card">
+          <h3><span style="font-size:1rem;margin-right:0.45rem;">&#128225;</span>LLM Platforms &amp; MLOps</h3>
+          <div class="chips"><span class="core">OpenAI API</span><span>Azure OpenAI Service</span><span>Google Vertex AI</span><span>LangSmith</span><span>Model Fine-Tuning (PEFT/LoRA)</span><span>MLOps</span></div>
         </div>
         <div class="skill-card">
           <h3><span style="font-size:1rem;margin-right:0.45rem;">&#9881;&#65039;</span>Backend &amp; APIs</h3>
           <div class="chips"><span class="core">FastAPI</span><span>Flask</span><span>Node.js</span><span>RESTful APIs</span><span class="core">Microservices</span><span>OAuth2</span><span>JWT</span></div>
+        </div>
+        <div class="skill-card">
+          <h3><span style="font-size:1rem;margin-right:0.45rem;">&#128220;</span>Languages</h3>
+          <div class="chips"><span class="core">Python</span><span class="core">SQL</span><span>Java</span><span>JavaScript</span><span>Kotlin</span><span>C++</span></div>
         </div>
         <div class="skill-card">
           <h3><span style="font-size:1rem;margin-right:0.45rem;">&#9729;&#65039;</span>Cloud &amp; DevOps</h3>
@@ -1325,15 +1262,11 @@ footer .section-title em { background: linear-gradient(100deg, var(--sky-l), #ff
         </div>
         <div class="skill-card">
           <h3><span style="font-size:1rem;margin-right:0.45rem;">&#128451;&#65039;</span>Databases &amp; Caching</h3>
-          <div class="chips"><span class="core">PostgreSQL</span><span>MySQL</span><span>MongoDB</span><span>SQLite</span><span class="core">Redis</span></div>
+          <div class="chips"><span class="core">PostgreSQL</span><span class="core">Redis</span><span>MySQL</span><span>MongoDB</span><span>SQLite</span></div>
         </div>
         <div class="skill-card">
           <h3><span style="font-size:1rem;margin-right:0.45rem;">&#128257;</span>Messaging &amp; Streaming</h3>
           <div class="chips"><span>Apache Kafka</span><span>RabbitMQ</span><span>Redis Pub/Sub</span><span>Rate Limiting</span></div>
-        </div>
-        <div class="skill-card">
-          <h3><span style="font-size:1rem;margin-right:0.45rem;">&#129504;</span>AI / ML</h3>
-          <div class="chips"><span class="core">LangChain</span><span>OpenAI API</span><span class="core">RAG</span><span>FAISS</span><span>NLP</span><span>Scikit-learn</span><span>TensorFlow</span><span>Hugging Face</span></div>
         </div>
         <div class="skill-card">
           <h3><span style="font-size:1rem;margin-right:0.45rem;">&#127912;</span>Frontend</h3>
@@ -1343,7 +1276,6 @@ footer .section-title em { background: linear-gradient(100deg, var(--sky-l), #ff
       <p class="skills-note"><i></i>Highlighted = core stack, used daily in production work</p>
     </div>
   </section>
-
   <!-- how i work -->
   <section id="approach" class="bg-white">
     <div class="reveal">
@@ -1353,8 +1285,8 @@ footer .section-title em { background: linear-gradient(100deg, var(--sky-l), #ff
       <div class="skills-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
         <div class="skill-card">
           <div style="font-size:1.6rem;margin-bottom:0.6rem;">📏</div>
-          <h3 style="font-size:0.9rem;text-transform:none;letter-spacing:0.02em;color:var(--ink);font-family:var(--serif);">Performance is measured, not assumed</h3>
-          <p style="font-size:0.8rem;font-weight:300;color:var(--mid);line-height:1.75;margin:0;">Every claim on this site has a number behind it — 20% lower latency, 30% faster queries, 65% faster redirects. I profile before I optimize, and I verify after I ship.</p>
+          <h3 style="font-size:0.9rem;text-transform:none;letter-spacing:0.02em;color:var(--ink);font-family:var(--serif);">Accuracy and latency, measured not assumed</h3>
+          <p style="font-size:0.8rem;font-weight:300;color:var(--mid);line-height:1.75;margin:0;">Every claim on this site has a number behind it — 90%+ RAG accuracy, 20% lower API latency, 60% less screening time. I evaluate retrieval and model outputs the same way I profile backend code — before shipping, not after.</p>
         </div>
         <div class="skill-card">
           <div style="font-size:1.6rem;margin-bottom:0.6rem;">🧱</div>
@@ -1363,13 +1295,12 @@ footer .section-title em { background: linear-gradient(100deg, var(--sky-l), #ff
         </div>
         <div class="skill-card">
           <div style="font-size:1.6rem;margin-bottom:0.6rem;">🚢</div>
-          <h3 style="font-size:0.9rem;text-transform:none;letter-spacing:0.02em;color:var(--ink);font-family:var(--serif);">Ship the whole system</h3>
-          <p style="font-size:0.8rem;font-weight:300;color:var(--mid);line-height:1.75;margin:0;">Not just endpoints — auth, caching, rate limiting, message queues, CI/CD, and monitoring. From FastAPI service to Dockerized deploy on AWS, I own the path to production.</p>
+          <h3 style="font-size:0.9rem;text-transform:none;letter-spacing:0.02em;color:var(--ink);font-family:var(--serif);">Ship the whole GenAI system</h3>
+          <p style="font-size:0.8rem;font-weight:300;color:var(--mid);line-height:1.75;margin:0;">Not just a prompt or a model call — retrieval, vector search, orchestration, auth, caching, CI/CD, and monitoring. From LangChain pipeline to Dockerized deploy on AWS, I own the path to production.</p>
         </div>
       </div>
     </div>
   </section>
-
   <!-- certifications -->
   <section id="certifications" class="bg-light">
     <div class="reveal">
@@ -1377,7 +1308,6 @@ footer .section-title em { background: linear-gradient(100deg, var(--sky-l), #ff
       <h2 class="section-title">Certifications &amp; <em>training.</em></h2>
       <hr class="rule" />
       <div class="awards-list">
-
         <div class="award-card reveal-x">
           <div class="award-icon">🧠</div>
           <div style="flex: 1;">
@@ -1389,7 +1319,6 @@ footer .section-title em { background: linear-gradient(100deg, var(--sky-l), #ff
             <p class="award-desc">Comprehensive program covering machine learning algorithms, model evaluation, and applied data science workflows — foundations that power my production AI/ML pipelines.</p>
           </div>
         </div>
-
         <div class="award-card reveal-x">
           <div class="award-icon">📊</div>
           <div style="flex: 1;">
@@ -1401,7 +1330,6 @@ footer .section-title em { background: linear-gradient(100deg, var(--sky-l), #ff
             <p class="award-desc">Rigorous training in programmatic data handling and analysis — the discipline behind the query optimization and analytics features I ship in backend systems.</p>
           </div>
         </div>
-
         <div class="award-card reveal-x">
           <div class="award-icon">⚙️</div>
           <div style="flex: 1;">
@@ -1413,11 +1341,9 @@ footer .section-title em { background: linear-gradient(100deg, var(--sky-l), #ff
             <p class="award-desc">Hands-on challenge building AI-powered solutions on the Power Platform, an early step into the AI-integrated systems I now build professionally.</p>
           </div>
         </div>
-
       </div>
     </div>
   </section>
-
   <!-- education -->
   <section id="education">
     <div class="reveal">
@@ -1425,7 +1351,6 @@ footer .section-title em { background: linear-gradient(100deg, var(--sky-l), #ff
       <h2 class="section-title">Where I built my <em>foundation.</em></h2>
       <hr class="rule" />
       <div class="edu-list">
-
         <div class="edu-accordion open" id="edu-ms">
           <div class="edu-header" onclick="toggleEdu('edu-ms')">
             <span class="edu-header-text">Master of Science in Computer Science</span>
@@ -1442,7 +1367,6 @@ footer .section-title em { background: linear-gradient(100deg, var(--sky-l), #ff
             </div>
           </div>
         </div>
-
         <div class="edu-accordion" id="edu-bs">
           <div class="edu-header" onclick="toggleEdu('edu-bs')">
             <span class="edu-header-text">B.Sc. Information Technology</span>
@@ -1459,13 +1383,10 @@ footer .section-title em { background: linear-gradient(100deg, var(--sky-l), #ff
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </section>
-
 </main>
-
 <!-- footer / contact -->
 <footer id="contact">
   <div class="reveal">
@@ -1476,7 +1397,7 @@ footer .section-title em { background: linear-gradient(100deg, var(--sky-l), #ff
       <div>
         <p style="display:inline-flex;align-items:center;gap:0.5rem;font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;color:#7ee2a8;font-weight:600;margin:0 0 1.2rem;"><span style="width:8px;height:8px;border-radius:50%;background:#7ee2a8;display:inline-block;box-shadow:0 0 8px #7ee2a8;"></span>Available for full-time roles — Worcester, MA / Remote</p>
         <p class="contact-info-text">
-          Open to backend, full-stack, and AI engineering roles. Whether it's a project, a role, or just a good conversation about distributed systems and LLMs — reach out.
+          Open to GenAI engineering, backend, and full-stack roles. Whether it's a project, a role, or just a good conversation about LLMs, RAG systems, and distributed backends — reach out.
         </p>
         <div class="contact-links">
           <a href="mailto:shivayokeswariathappan@gmail.com" class="c-row">
@@ -1498,7 +1419,7 @@ footer .section-title em { background: linear-gradient(100deg, var(--sky-l), #ff
         </div>
       </div>
       <div class="contact-form">
-        
+
         <form id="contactForm">
           <div class="f-field"><input type="text" name="name" placeholder="Your Name" required /></div>
           <div class="f-field"><input type="email" name="email" placeholder="Your Email" required /></div>
@@ -1519,7 +1440,6 @@ footer .section-title em { background: linear-gradient(100deg, var(--sky-l), #ff
     </div>
   </div>
 </footer>
-
 <button id="chatBtn" aria-label="Chat with Shiva's AI assistant">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
 </button>
@@ -1551,13 +1471,11 @@ mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => 
   hamburger.classList.remove('open');
   mobileMenu.classList.remove('open');
 }));
-
 // scroll reveal
 const io = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
 }, { threshold: 0.08 });
 document.querySelectorAll('.reveal, .reveal-x').forEach(el => io.observe(el));
-
 // filters
 const pills = document.querySelectorAll('.filter-pill');
 const cards = document.querySelectorAll('.project-card');
@@ -1567,7 +1485,6 @@ pills.forEach(pill => pill.addEventListener('click', () => {
   const f = pill.dataset.filter;
   cards.forEach(c => c.classList.toggle('hide', f !== 'all' && c.dataset.tag !== f));
 }));
-
 // accordions
 function toggleEdu(id) {
   const el = document.getElementById(id);
@@ -1575,7 +1492,6 @@ function toggleEdu(id) {
   document.querySelectorAll('.edu-accordion').forEach(a => a.classList.remove('open'));
   if (!wasOpen) el.classList.add('open');
 }
-
 // scroll progress / back to top
 const bar = document.getElementById('scrollbar'), toTop = document.getElementById('toTop');
 addEventListener('scroll', () => {
@@ -1584,9 +1500,8 @@ addEventListener('scroll', () => {
   toTop.classList.toggle('show', s > 600);
 }, { passive: true });
 toTop.addEventListener('click', () => scrollTo({ top: 0, behavior: 'smooth' }));
-
 // typed roles
-const roles = ['Backend Engineer', 'API & Microservices Developer', 'AI Systems Builder', 'MS CS @ Clark University'];
+const roles = ['GenAI Engineer', 'LLM & RAG Systems Builder', 'Backend Engineer', 'MS CS @ Clark University'];
 const roleEl = document.getElementById('heroRole');
 let ri = 0, ci = 0, del = false;
 (function type() {
@@ -1597,7 +1512,6 @@ let ri = 0, ci = 0, del = false;
   else if (ci > 0) { ci--; setTimeout(type, 30); }
   else { del = false; ri = (ri + 1) % roles.length; setTimeout(type, 350); }
 })();
-
 // counters
 const cio = new IntersectionObserver(es => es.forEach(e => {
   if (!e.isIntersecting) return; cio.unobserve(e.target);
@@ -1610,7 +1524,6 @@ const cio = new IntersectionObserver(es => es.forEach(e => {
   })(t0);
 }), { threshold: 0.6 });
 document.querySelectorAll('.stat-num').forEach(el => cio.observe(el));
-
 // card tilt
 document.querySelectorAll('.project-card').forEach(c => {
   const wrap = c.querySelector('.project-card-img-wrap');
@@ -1621,7 +1534,6 @@ document.querySelectorAll('.project-card').forEach(c => {
   });
   c.addEventListener('mouseleave', () => c.style.transform = '');
 });
-
 // chat widget
 const cBtn = document.getElementById('chatBtn'), cPanel = document.getElementById('chatPanel'),
       cLog = document.getElementById('chatLog'), cIn = document.getElementById('chatIn'),
@@ -1664,14 +1576,12 @@ async function send() {
 }
 cSend.addEventListener('click', send);
 cIn.addEventListener('keydown', e => { if (e.key === 'Enter') send(); });
-
 // theme toggle (persisted)
 const themeBtn = document.getElementById('themeBtn');
 const setTheme = t => { document.documentElement.dataset.theme = t; try { localStorage.setItem('theme', t); } catch(e){} };
 try { const saved = localStorage.getItem('theme'); if (saved) setTheme(saved);
   else if (matchMedia('(prefers-color-scheme: dark)').matches) setTheme('dark'); } catch(e){}
 themeBtn.addEventListener('click', () => setTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'));
-
 // command palette
 const cmdk = document.getElementById('cmdk'), cmdkIn = document.getElementById('cmdkIn'), cmdkList = document.getElementById('cmdkList');
 const actions = [
@@ -1713,7 +1623,6 @@ cmdkIn.addEventListener('input', () => {
   sel = 0; renderCmdk();
 });
 cmdk.addEventListener('click', e => { if (e.target === cmdk) closeCmdk(); });
-
 // contact form -> /api/contact
 const cForm = document.getElementById('contactForm'), fStatus = document.getElementById('formStatus'), sendBtn = document.getElementById('sendBtn');
 cForm.addEventListener('submit', async e => {
@@ -1735,10 +1644,8 @@ cForm.addEventListener('submit', async e => {
   }
   sendBtn.disabled = false; sendBtn.textContent = 'Send Message';
 });
-
 document.getElementById('cmdkHint').addEventListener('click', openCmdk);
 document.getElementById('yr').textContent = new Date().getFullYear();
-
 // intro: boot -> staggered name -> curtain split (once per session)
 (function(){
   const intro = document.getElementById('intro');
@@ -1746,7 +1653,7 @@ document.getElementById('yr').textContent = new Date().getFullYear();
   const nameEl = document.getElementById('introName');
   'Shiva Athappan'.split('').forEach((ch, i) => {
     const s = document.createElement('span');
-    s.textContent = ch === ' ' ? '\u00A0' : ch;
+    s.textContent = ch === ' ' ? ' ' : ch;
     s.style.animationDelay = (1.15 + i * 0.045) + 's';
     nameEl.appendChild(s);
   });
